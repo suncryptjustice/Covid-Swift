@@ -64,9 +64,9 @@ extension ViewController: CLLocationManagerDelegate {
                     self.activityController.startAnimating()
                     self.activityController.isHidden = true
                     self.countryUILabel.text = countryName.capitalized
-                    self.casesLabel.text = "Cases: \(countryData.cases) | Today: \(countryData.todayCases) | Active: \(countryData.activeCases)"
-                    self.deathsLabel.text = "Deaths: \(countryData.deaths) | Today: \(countryData.todayDeaths)"
-                    self.recoveredLabel.text = "Recovered: \(countryData.recovered) | Critical: \(countryData.inCtriticalCondition)"
+                    self.casesLabel.text = NSLocalizedString("Cases", comment: "") + ": \(countryData.cases) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayCases) | " + NSLocalizedString("Active", comment: "") + ": \(countryData.activeCases)"
+                    self.deathsLabel.text = NSLocalizedString("Deaths", comment: "") + ": \(countryData.deaths) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayDeaths)"
+                    self.recoveredLabel.text = NSLocalizedString("Recovered", comment: "") + ": \(countryData.recovered) | " + NSLocalizedString("Critical", comment: "") + ": \(countryData.inCtriticalCondition)"
                     //If we use CoreData to save things we need compare to previous and check dynamic of grown
                     self.stopLocationManager()
                 }

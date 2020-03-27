@@ -15,41 +15,58 @@
                 <rect key="frame" x="0.0" y="0.0" width="556" height="148"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="751-Or-q0O">
-                        <rect key="frame" x="8" y="8" width="540" height="119"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKg-Bk-ick">
+                        <rect key="frame" x="20" y="8" width="516" height="132"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLk-N5-siU">
-                                <rect key="frame" x="0.0" y="0.0" width="211.5" height="41"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cases: 9999999 | Today: 9999999 | Active: 999999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHx-tf-l9w">
-                                <rect key="frame" x="0.0" y="51" width="320" height="16"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deaths: 9999999 | Today: 9999999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PR-42-Vkz">
-                                <rect key="frame" x="0.0" y="77" width="220.5" height="16"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recovered: 9999999 | Critical: 9999999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsd-WZ-TMQ">
-                                <rect key="frame" x="0.0" y="103" width="248" height="16"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="751-Or-q0O">
+                                <rect key="frame" x="8" y="8" width="500" height="116"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Country Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLk-N5-siU">
+                                        <rect key="frame" x="0.0" y="0.0" width="211.5" height="41"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Cases: 9999999 | Today: 9999999 | Active: 999999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHx-tf-l9w">
+                                        <rect key="frame" x="0.0" y="51" width="320" height="16"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Deaths: 9999999 | Today: 9999999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PR-42-Vkz">
+                                        <rect key="frame" x="0.0" y="77" width="220.5" height="16"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Recovered: 9999999 | Critical: 9999999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsd-WZ-TMQ">
+                                        <rect key="frame" x="0.0" y="103" width="248" height="13"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
-                    </stackView>
+                        <color key="backgroundColor" white="0.14428580939999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="751-Or-q0O" firstAttribute="top" secondItem="qKg-Bk-ick" secondAttribute="top" constant="8" id="9Bb-ry-ksV"/>
+                            <constraint firstItem="751-Or-q0O" firstAttribute="leading" secondItem="qKg-Bk-ick" secondAttribute="leading" constant="8" id="I4h-70-mSc"/>
+                            <constraint firstAttribute="trailing" secondItem="751-Or-q0O" secondAttribute="trailing" constant="8" id="y0b-zc-SEw"/>
+                            <constraint firstAttribute="bottom" secondItem="751-Or-q0O" secondAttribute="bottom" constant="8" id="zgM-Gu-NWm"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="751-Or-q0O" secondAttribute="trailing" constant="8" id="14L-OF-cX5"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="751-Or-q0O" secondAttribute="bottom" constant="8" id="4MO-Ys-XJh"/>
-                    <constraint firstItem="751-Or-q0O" firstAttribute="leading" secondItem="qAi-Fb-1VW" secondAttribute="leading" constant="8" id="Bu6-aD-RC5"/>
-                    <constraint firstItem="751-Or-q0O" firstAttribute="top" secondItem="qAi-Fb-1VW" secondAttribute="top" constant="8" id="Yvw-9c-YaD"/>
+                    <constraint firstItem="qKg-Bk-ick" firstAttribute="leading" secondItem="qAi-Fb-1VW" secondAttribute="leading" constant="20" id="4X1-Nv-tlY"/>
+                    <constraint firstAttribute="bottom" secondItem="qKg-Bk-ick" secondAttribute="bottom" constant="8" id="E99-Jy-Eqm"/>
+                    <constraint firstItem="qKg-Bk-ick" firstAttribute="top" secondItem="qAi-Fb-1VW" secondAttribute="top" constant="8" id="JuM-ic-er3"/>
+                    <constraint firstAttribute="trailing" secondItem="qKg-Bk-ick" secondAttribute="trailing" constant="20" id="bNM-9i-qSQ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

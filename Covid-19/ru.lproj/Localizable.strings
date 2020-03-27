@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  Covid-19
+
+  Created by Ilia Zhegunov on 28.03.2020.
+  Copyright © 2020 Ilia Zhegunov. All rights reserved.
+*/
+
+
+//CovidStatCell
+
+"Cases" = "Всего заражений";
+"Today" = "Сегодня";
+"Active" = "Сейчас болеют";
+"Deaths" = "Смертей";
+"Recovered" = "Излечилось";
+"Critical" = "Критическое состояние";
+
+// Sorting alert
+
+"Sorting" = "Сортировка";
+"Choose sort parameter" = "Выберетие параметр сортировки";
+"Total cases" = "Количество зараженных";
+"Today new cases" = "Новые случаи заражения за сегодня";
+"Total deaths" = "Смертность населения";
+"Today new deaths" = "Сммертность за сегодня";
+"Recovered" = "Излечилось";
+"Critical condition" = "В критическом состоянии";
+"Cancel" = "Отмена";

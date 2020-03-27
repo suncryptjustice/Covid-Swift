@@ -16,6 +16,7 @@ class WorldStatViewController: UIViewController {
         case totalDeaths
         case todayDeaths
         case recovered
+        case critical
     }
     
     @IBOutlet weak var statTableView: UITableView!
@@ -101,14 +102,15 @@ extension WorldStatViewController: UITableViewDelegate, UITableViewDataSource {
         switch controllerRule {
         case .archive:
             cell.countryName.text = casesFromReport[indexPath.row].country_name
-            cell.casesAmmount.text = "Cases: \(casesFromReport[indexPath.row].totalCases) | Today: \(casesFromReport[indexPath.row].totalCases) | Active: \(casesFromReport[indexPath.row].activeCases)"
-            cell.deathsAmmount.text = "Deaths: \(casesFromReport[indexPath.row].totalDeaths) | Today: \(casesFromReport[indexPath.row].todayDeaths)"
-            cell.recoveredAmmount.text = "Recovered: \(casesFromReport[indexPath.row].recovered) | Critical: \(casesFromReport[indexPath.row].criticalCondition)"
+            cell.casesAmmount.text = NSLocalizedString("Cases", comment: "") + ": \(casesFromReport[indexPath.row].totalCases) | " + NSLocalizedString("Today", comment: "") + ": \(casesFromReport[indexPath.row].todayCases) | " + NSLocalizedString("Active", comment: "") + ": \(casesFromReport[indexPath.row].activeCases)"
+            cell.deathsAmmount.text = NSLocalizedString("Deaths", comment: "") + ": \(casesFromReport[indexPath.row].totalDeaths) | " + NSLocalizedString("Today", comment: "") + ": \(casesFromReport[indexPath.row].todayDeaths)"
+            cell.recoveredAmmount.text = NSLocalizedString("Recovered", comment: "") + ": \(casesFromReport[indexPath.row].recovered) | " + NSLocalizedString("Critical", comment: "") + ": \(casesFromReport[indexPath.row].criticalCondition)"
         case .netUpdate:
             cell.countryName.text = casesForCountriesNet[indexPath.row].country
-            cell.casesAmmount.text = "Cases: \(casesForCountriesNet[indexPath.row].cases) | Today: \(casesForCountriesNet[indexPath.row].todayCases) | Active: \(casesForCountriesNet[indexPath.row].activeCases)"
-            cell.deathsAmmount.text = "Deaths: \(casesForCountriesNet[indexPath.row].deaths) | Today: \(casesForCountriesNet[indexPath.row].todayDeaths)"
-            cell.recoveredAmmount.text = "Recovered: \(casesForCountriesNet[indexPath.row].recovered) | Critical: \(casesForCountriesNet[indexPath.row].inCtriticalCondition)"
+            cell.casesAmmount.text = NSLocalizedString("Cases", comment: "") + ": \(casesForCountriesNet[indexPath.row].cases) | " + NSLocalizedString("Today", comment: "") + ": \(casesForCountriesNet[indexPath.row].todayCases) | " + NSLocalizedString("Active", comment: "") + ": \(casesForCountriesNet[indexPath.row].activeCases)"
+            cell.deathsAmmount.text = NSLocalizedString("Deaths", comment: "") + ": \(casesForCountriesNet[indexPath.row].deaths) | " + NSLocalizedString("Today", comment: "") + ": \(casesForCountriesNet[indexPath.row].todayDeaths)"
+            cell.recoveredAmmount.text = NSLocalizedString("Recovered", comment: "") + ": \(casesForCountriesNet[indexPath.row].recovered) | " + NSLocalizedString("Critical", comment: "") + ": \(casesForCountriesNet[indexPath.row].inCtriticalCondition)"
+            
         case .none:
             return UITableViewCell()
         }
@@ -153,28 +155,32 @@ extension WorldStatViewController: UISearchBarDelegate {
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        let alert = UIAlertController(title: "Sorting", message: "Choose type of sorting that you want", preferredStyle: .alert)
-        let mostCases = UIAlertAction(title: "Total cases", style: .default) { (handler) in
+        let alert = UIAlertController(title: NSLocalizedString("Sorting", comment: ""), message: "Choose sort parameter", preferredStyle: .alert)
+        let mostCases = UIAlertAction(title: NSLocalizedString("Total cases", comment: ""), style: .default) { (handler) in
             self.sorting(sortingType: .totalCases)
             self.statTableView.reloadData()
         }
-        let newCases = UIAlertAction(title: "Today new cases", style: .default) { (handler) in
+        let newCases = UIAlertAction(title: NSLocalizedString("Today new cases", comment: ""), style: .default) { (handler) in
             self.sorting(sortingType: .todayCases)
             self.statTableView.reloadData()
         }
-        let mostDeaths = UIAlertAction(title: "Total deaths", style: .default) { (handler) in
+        let mostDeaths = UIAlertAction(title: NSLocalizedString("Total deaths", comment: ""), style: .default) { (handler) in
             self.sorting(sortingType: .totalDeaths)
             self.statTableView.reloadData()
         }
-        let newDeaths = UIAlertAction(title: "Today new deaths", style: .default) { (handler) in
+        let newDeaths = UIAlertAction(title: NSLocalizedString("Today new deaths", comment: ""), style: .default) { (handler) in
             self.sorting(sortingType: .todayDeaths)
             self.statTableView.reloadData()
         }
-        let recovered = UIAlertAction(title: "Recovered", style: .default) { (handler) in
+        let recovered = UIAlertAction(title: NSLocalizedString("Recovered", comment: ""), style: .default) { (handler) in
             self.sorting(sortingType: .recovered)
             self.statTableView.reloadData()
         }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (handler) in
+        let critical = UIAlertAction(title: NSLocalizedString("Critical condition", comment: ""), style: .default) { (handler) in
+            self.sorting(sortingType: .critical)
+            self.statTableView.reloadData()
+        }
+        let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { (handler) in
             print("Nothing changes")
         }
         alert.addAction(mostCases)
@@ -183,6 +189,7 @@ extension WorldStatViewController: UISearchBarDelegate {
         alert.addAction(newDeaths)
         alert.addAction(recovered)
         alert.addAction(cancel)
+        alert.addAction(critical)
         
         self.present(alert, animated: true, completion: nil)
         
@@ -212,6 +219,10 @@ extension WorldStatViewController: UISearchBarDelegate {
                 casesFromReport = casesFromReport.sorted(by: { (element1, element2) -> Bool in
                     return element1.recovered > element2.recovered
                 })
+            case .critical:
+                casesFromReport = casesFromReport.sorted(by: { (element1, element2) -> Bool in
+                    return element1.criticalCondition > element2.criticalCondition
+                })
             }
             
         case .netUpdate:
@@ -235,6 +246,10 @@ extension WorldStatViewController: UISearchBarDelegate {
             case .recovered:
                 casesForCountriesNet = casesForCountriesNet.sorted(by: { (element1, element2) -> Bool in
                     return element1.recovered > element2.recovered
+                })
+            case .critical:
+                casesForCountriesNet = casesForCountriesNet.sorted(by: { (element1, element2) -> Bool in
+                    return element1.inCtriticalCondition > element2.inCtriticalCondition
                 })
             }
         case .none:

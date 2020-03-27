@@ -23,7 +23,8 @@
 		E04A22C7242DA54F00D66763 /* StatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04A22C6242DA54F00D66763 /* StatModel.swift */; };
 		E04A22C9242DC95300D66763 /* DailyReportsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04A22C8242DC95300D66763 /* DailyReportsController.swift */; };
 		E04A22CB242E263700D66763 /* ReportsArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04A22CA242E263700D66763 /* ReportsArchive.swift */; };
-		E06241A4242EB01000B39374 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E06241A3242EB01000B39374 /* Localizable.strings */; };
+		E0D14637242EBA980060A4C1 /* covidStatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0D14636242EBA980060A4C1 /* covidStatTableViewCell.xib */; };
+		E0D14638242EBCC40060A4C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E0D1463A242EBCC40060A4C1 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +63,9 @@
 		E04A22C6242DA54F00D66763 /* StatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatModel.swift; sourceTree = "<group>"; };
 		E04A22C8242DC95300D66763 /* DailyReportsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReportsController.swift; sourceTree = "<group>"; };
 		E04A22CA242E263700D66763 /* ReportsArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsArchive.swift; sourceTree = "<group>"; };
-		E06241A3242EB01000B39374 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		E0D14636242EBA980060A4C1 /* covidStatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = covidStatTableViewCell.xib; sourceTree = "<group>"; };
+		E0D14639242EBCC40060A4C1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E0D1463B242EBCCD0060A4C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +131,8 @@
 		E003EEFD242D8BF100303707 /* Covid-19 */ = {
 			isa = PBXGroup;
 			children = (
-				E06241A3242EB01000B39374 /* Localizable.strings */,
+				E0D14636242EBA980060A4C1 /* covidStatTableViewCell.xib */,
+				E0D1463A242EBCC40060A4C1 /* Localizable.strings */,
 				E003EEFE242D8BF100303707 /* AppDelegate.swift */,
 				E003EF00242D8BF100303707 /* SceneDelegate.swift */,
 				E003EF02242D8BF100303707 /* ViewController.swift */,
@@ -240,9 +244,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E06241A4242EB01000B39374 /* Localizable.strings in Resources */,
+				E0D14638242EBCC40060A4C1 /* Localizable.strings in Resources */,
 				E003EF0E242D8BF500303707 /* LaunchScreen.storyboard in Resources */,
 				E003EF0B242D8BF500303707 /* Assets.xcassets in Resources */,
+				E0D14637242EBA980060A4C1 /* covidStatTableViewCell.xib in Resources */,
 				E003EF06242D8BF100303707 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,6 +360,15 @@
 				E003EF0D242D8BF500303707 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E0D1463A242EBCC40060A4C1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E0D14639242EBCC40060A4C1 /* ru */,
+				E0D1463B242EBCCD0060A4C1 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
