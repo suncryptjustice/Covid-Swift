@@ -15,58 +15,94 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cfk-Jt-uba">
-                                <rect key="frame" x="86.5" y="250" width="241.5" height="396"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bu3-66-fJK">
+                                <rect key="frame" x="162" y="342" width="90" height="212"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COVID-19 CORONAVIRUS PANDEMIC" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZj-OK-qke">
-                                        <rect key="frame" x="0.0" y="0.0" width="241.5" height="123"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Poh-1C-L8X">
-                                        <rect key="frame" x="102" y="133" width="37" height="37"/>
+                                        <rect key="frame" x="26.5" y="87.5" width="37" height="37"/>
                                     </activityIndicatorView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-Ac-lrp">
-                                        <rect key="frame" x="95.5" y="180" width="50" height="170"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="cfk-Jt-uba">
+                                        <rect key="frame" x="20" y="20" width="50" height="172"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IsU-Mv-7Sw">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iZj-OK-qke">
+                                                <rect key="frame" x="25" y="0.0" width="0.0" height="0.0"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7a-Gz-cpd">
-                                                <rect key="frame" x="0.0" y="60" width="50" height="50"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQA-P4-uSI">
-                                                <rect key="frame" x="0.0" y="120" width="50" height="50"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5MD-Ac-lrp">
+                                                <rect key="frame" x="0.0" y="2" width="50" height="170"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IsU-Mv-7Sw">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7a-Gz-cpd">
+                                                        <rect key="frame" x="0.0" y="60" width="50" height="50"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQA-P4-uSI">
+                                                        <rect key="frame" x="0.0" y="120" width="50" height="50"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RW3-wI-Plf">
-                                        <rect key="frame" x="6.5" y="360" width="228" height="36"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                        <state key="normal" title="Coronavirus Live statistics"/>
-                                        <connections>
-                                            <segue destination="qIU-XF-IeG" kind="show" identifier="getFromNet" id="yO8-9C-uq1"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="0.14428580939999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Poh-1C-L8X" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bu3-66-fJK" secondAttribute="leading" constant="20" id="A8w-jt-bNy"/>
+                                    <constraint firstItem="Poh-1C-L8X" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Bu3-66-fJK" secondAttribute="top" constant="20" id="GEq-Aw-TqX"/>
+                                    <constraint firstItem="cfk-Jt-uba" firstAttribute="leading" secondItem="Bu3-66-fJK" secondAttribute="leading" constant="20" id="RMs-FK-Tco"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Poh-1C-L8X" secondAttribute="bottom" constant="20" id="Xfq-hT-5RI"/>
+                                    <constraint firstAttribute="bottom" secondItem="cfk-Jt-uba" secondAttribute="bottom" constant="20" id="bQD-IX-Pwz"/>
+                                    <constraint firstItem="Poh-1C-L8X" firstAttribute="centerX" secondItem="Bu3-66-fJK" secondAttribute="centerX" id="hLI-zU-Zc5"/>
+                                    <constraint firstItem="Poh-1C-L8X" firstAttribute="centerY" secondItem="Bu3-66-fJK" secondAttribute="centerY" id="s6r-VM-b6H"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Poh-1C-L8X" secondAttribute="trailing" constant="20" id="tzu-Wf-l06"/>
+                                    <constraint firstItem="cfk-Jt-uba" firstAttribute="top" secondItem="Bu3-66-fJK" secondAttribute="top" constant="20" id="uvZ-vz-hbs"/>
+                                    <constraint firstAttribute="trailing" secondItem="cfk-Jt-uba" secondAttribute="trailing" constant="20" id="ybm-h7-cYH"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COVID-19 CORONAVIRUS PANDEMIC" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="24" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OBG-7w-bZh">
+                                <rect key="frame" x="40" y="254.5" width="334" height="57.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RW3-wI-Plf">
+                                <rect key="frame" x="45" y="574" width="324" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <state key="normal" title="Coronavirus Live statistics"/>
+                                <connections>
+                                    <segue destination="qIU-XF-IeG" kind="show" identifier="getFromNet" id="yO8-9C-uq1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="cfk-Jt-uba" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="5h5-RC-uwV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cfk-Jt-uba" secondAttribute="trailing" constant="20" id="FS4-Ky-11A"/>
-                            <constraint firstItem="cfk-Jt-uba" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="n9S-k5-6sz"/>
-                            <constraint firstItem="cfk-Jt-uba" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ppU-Ah-rh1"/>
+                            <constraint firstItem="Bu3-66-fJK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0hU-EP-MwT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OBG-7w-bZh" secondAttribute="trailing" constant="40" id="1th-YJ-O9R"/>
+                            <constraint firstItem="OBG-7w-bZh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="3Js-bT-3jx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RW3-wI-Plf" secondAttribute="trailing" constant="45" id="LcW-1v-rrO"/>
+                            <constraint firstItem="Bu3-66-fJK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="40" id="Pf7-pw-zXM"/>
+                            <constraint firstItem="OBG-7w-bZh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="TwM-8v-POz"/>
+                            <constraint firstItem="Bu3-66-fJK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UTE-ev-lSh"/>
+                            <constraint firstItem="RW3-wI-Plf" firstAttribute="top" secondItem="Bu3-66-fJK" secondAttribute="bottom" constant="20" id="WVj-P2-GHP"/>
+                            <constraint firstItem="Bu3-66-fJK" firstAttribute="top" secondItem="OBG-7w-bZh" secondAttribute="bottom" constant="30" id="fMj-cj-R7g"/>
+                            <constraint firstItem="RW3-wI-Plf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="45" id="jhV-9A-hHj"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Bu3-66-fJK" secondAttribute="trailing" constant="40" id="z1R-Jk-dq5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -104,7 +140,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Jh-CX-EMT">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0Jh-CX-EMT">
                                 <rect key="frame" x="0.0" y="144" width="414" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -138,7 +174,6 @@
         <!--Navigation Controller-->
         <scene sceneID="i02-qh-lP5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JP1-BL-DL1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SEl-Z9-zZZ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PsM-hy-10g">
@@ -150,6 +185,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="SxE-fK-Q3c"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JP1-BL-DL1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="133.92857142857142"/>
         </scene>
