@@ -55,15 +55,14 @@ extension ViewController: CLLocationManagerDelegate {
         print("User location = \(location.coordinate.latitude) \(location.coordinate.longitude)")
         
         self.getCountry(location) { (country) in
-            if let countryCode = country.0, let countryName = country.1 {
+            if let country = country {
                 print("Update label and make request for user country = \(country)")
                 let requestController = RequestController()
-                requestController.getDataForCountry(countryCode) { (countryData) in
-                    print("We get all data about COVID in \(countryName). Create form to show all stuff")
-                    
+                requestController.getDataForCountry(country) { (countryData) in
+                    print("We get all data about COVID in \(country). Create form to show all stuff")
                     self.activityController.startAnimating()
                     self.activityController.isHidden = true
-                    self.countryUILabel.text = countryName.capitalized
+                    self.countryUILabel.text = country.capitalized
                     self.casesLabel.text = "Cases: \(countryData.cases) | Today: \(countryData.todayCases) | Active: \(countryData.activeCases)"
                     self.deathsLabel.text = "Deaths: \(countryData.deaths) | Today: \(countryData.todayDeaths)"
                     self.recoveredLabel.text = "Recovered: \(countryData.recovered) | Critical: \(countryData.inCtriticalCondition)"
@@ -89,7 +88,7 @@ extension ViewController: CLLocationManagerDelegate {
         stopLocationManager()
     }
     
-    func getCountry(_ location: CLLocation, countryName: (((String?, String?)) -> ())? = nil) {
+    func getCountry(_ location: CLLocation, countryName: (((String?)) -> ())? = nil) {
         let geoCoder = CLGeocoder()
         
         geoCoder.reverseGeocodeLocation(location, completionHandler:
@@ -98,9 +97,9 @@ extension ViewController: CLLocationManagerDelegate {
 
                     // Place details
                     guard let placeMark = placemarks?.first else { return }
-                    if let countryCode = placeMark.isoCountryCode, let country_Name = placeMark.country {
-                        print("We manage to get country from coordinates \(country_Name)")
-                        countryName?((countryCode, country_Name))
+                    if let country = placeMark.country {
+                        print("We manage to get country from coordinates \(country)")
+                        countryName?(country)
                     } else {
                         print("We can't get country from coordinates")
                     }
