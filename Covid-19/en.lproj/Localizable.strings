@@ -27,3 +27,18 @@
 "Recovered" = "Recovered";
 "Critical condition" = "Critical condition";
 "Cancel" = "Cancel";
+
+
+//PDF for Advices
+
+"SymptomsPic" = "covidSymptoms_eng";
+"SequelaePic" = "covidComplications_eng";
+"SpreadPic" = "covidSpreadWay_eng";
+"AdvicePic" = "covidAdvices_eng";
+
+// Advices UIVC headers
+
+"Symptoms" = "Symptoms of Coronavirus Disease";
+"Sequelae" = "Sequelae from COVID-19";
+"Spread" = "How COVID-19 Is Spread";
+"Advice" = "Basic protective measures against virus";

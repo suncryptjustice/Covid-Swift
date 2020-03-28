@@ -16,8 +16,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var deathsLabel: UILabel!
     @IBOutlet weak var recoveredLabel: UILabel!
     @IBOutlet weak var activityController: UIActivityIndicatorView!
+    @IBOutlet weak var virusButton: UIButton!
     
     let locationManager = CLLocationManager()
+    var shakeTimer = Timer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,16 @@ class ViewController: UIViewController {
         activityController.startAnimating()
         dispatchDelay(delay: 2) {
             self.askLocation()
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let shaker = UserDefaults.standard.bool(forKey: "shaker")
+        if shaker {
+            print("Bad, we already press to shaker")
+        } else {
+            self.activateVirusShaker()
         }
     }
     
@@ -34,6 +46,20 @@ class ViewController: UIViewController {
                 nextViewController.controllerRule = .netUpdate //Or pass any values
             }
         }
+    }
+    
+    func activateVirusShaker() {
+        shakeTimer = Timer.scheduledTimer(timeInterval: Double.random(in: 3...5), target: self, selector: #selector(shaker), userInfo: nil, repeats: true)
+        shakeTimer.tolerance = 3
+    }
+    
+    @objc func shaker(){
+        print("Shake baby")
+        self.virusButton.shakeAnim()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.shakeTimer.invalidate()
     }
 
 

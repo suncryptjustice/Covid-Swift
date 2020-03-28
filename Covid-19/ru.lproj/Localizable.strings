@@ -27,3 +27,18 @@
 "Recovered" = "Излечилось";
 "Critical condition" = "В критическом состоянии";
 "Cancel" = "Отмена";
+
+//PDF for Advices
+
+"SymptomsPic" = "covidSymptoms_rus";
+"SequelaePic" = "covidComplications_rus";
+"SpreadPic" = "covidSpreadWay_rus";
+"AdvicePic" = "covidAdvices_rus";
+
+
+// Advices UIVC headers
+
+"Symptoms" = "Основные симптомы COVID-19";
+"Sequelae" = "Осложнения";
+"Spread" = "Пути передачи вируса";
+"Advice" = "Советы";
