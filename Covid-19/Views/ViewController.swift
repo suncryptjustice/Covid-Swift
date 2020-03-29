@@ -58,11 +58,18 @@ class ViewController: UIViewController {
     }
     @IBAction func virusButtonPressed(_ sender: UIButton) {
         virusButton.isEnabled = false
+        statisticsButton.isEnabled = false
+        journalButton.isEnabled = false
+        
     }
     @IBAction func statisticsButtonPressed(_ sender: UIButton) {
+        virusButton.isEnabled = false
         statisticsButton.isEnabled = false
+        journalButton.isEnabled = false
     }
     @IBAction func journalButtonPressed(_ sender: UIButton) {
+        virusButton.isEnabled = false
+        statisticsButton.isEnabled = false
         journalButton.isEnabled = false
     }
     
