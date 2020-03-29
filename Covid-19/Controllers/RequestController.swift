@@ -11,23 +11,18 @@ import Alamofire
 import SwiftyJSON
 
 class RequestController {
-    
-    let headers: HTTPHeaders = [
-        "x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com",
-        "x-rapidapi-key": "870bc26c4cmshd40f48e35779abcp12ffa0jsn4a4beddda2c6"
-    ]
-
-    
-    func getDataForCountry(_ countryName: String?, model: (((StatModel)) -> ())? = nil) {
+        
+    func getDataForCountry(_ countryName: String?, model: (((StatModel)) -> ())? = nil, errorFlag: (((Bool)) -> ())? = nil) {
         
         let parameter = countryName ?? ""
         let url = "https://coronavirus-19-api.herokuapp.com/countries/\(parameter)"
         
-        AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers).validate().validate(contentType: ["application/json"])
+        AF.session.configuration.timeoutIntervalForRequest = 15 // in seconds
+        AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).validate().validate(contentType: ["application/json"])
                 .responseJSON() { response in
                     
-                    //print("Request: \(String(describing: response.request))")   // original url request
-                    //print("Response: \(String(describing: response.response))") // http url response
+                    print("Request: \(String(describing: response.request))")   // original url request
+                    print("Response: \(String(describing: response.response))") // http url response
                     print("Result: \(response.result)")                         // response serialization result
                     
                     switch response.result {
@@ -55,6 +50,7 @@ class RequestController {
                         }
                         
                     case .failure( _):
+                        errorFlag?(true)
                         print("Failure")
                     }
             }
@@ -107,6 +103,43 @@ class RequestController {
                     
                 case .failure( _):
                     print("Failure")
+                }
+        }
+    }
+    
+    func getGlobalData(globalData: (((Int, Int, Int, Date)) -> ())? = nil, errorFlag: (((Bool)) -> ())? = nil) {
+    
+    let url = "https://coronavirus-19-api.herokuapp.com/all"
+    
+    AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).validate().validate(contentType: ["application/json"])
+            .responseJSON() { response in
+                
+                //print("Request: \(String(describing: response.request))")   // original url request
+                //print("Response: \(String(describing: response.response))") // http url response
+                print("Result: \(response.result)")                         // response serialization result
+                
+                switch response.result {
+                    
+                case .success:
+                    print("Success")
+                    if let data = response.data {
+                        do {
+                            let subJson = try JSON(data: data)
+                            let cases = subJson["cases"].intValue
+                            let deaths = subJson["deaths"].intValue
+                            let recovered = subJson["recovered"].intValue
+                            
+                            let date = Date()
+                           
+                            globalData?((cases, deaths, recovered, date))
+                        } catch {
+                            print("Error to get user information")
+                        }
+                    }
+                    
+                case .failure( _):
+                    print("Failure")
+                    errorFlag?(true)
                 }
         }
     }

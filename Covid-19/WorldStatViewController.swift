@@ -21,15 +21,25 @@ class WorldStatViewController: UIViewController {
     
     @IBOutlet weak var statTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var globalCasesLabel: UILabel!
+    @IBOutlet weak var globalDeathsLabel: UILabel!
+    @IBOutlet weak var globalRecoveredLabel: UILabel!
+    @IBOutlet weak var sectionView: UIView!
+    @IBOutlet weak var globalView: UIView!
     
     var controllerRule: controllerWorkRule!
     var reportData: COVID_daily_report?
+    var refreshControl = UIRefreshControl()
         
     var casesForCountriesNet: [StatModel] = []
     var casesFromReport: [Country_daily_report] = []
     let requestController = RequestController()
     
     let dailyReportsController = DailyReportsController()
+    
+    @IBOutlet weak var sectionViewConstraint: NSLayoutConstraint!
+    var isSectionViewIsHidden: Bool = false
+    
     
     enum controllerWorkRule {
         case archive
@@ -38,48 +48,114 @@ class WorldStatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewControllerSetup()
         
+        
+}
+    @objc func refresh() {
+        self.refreshControl.beginRefreshing()
+        startSetUP(rule: controllerRule)
+    }
+    
+    func gestureFunctionality() {
+        let tapForDissmissKeyboard = UITapGestureRecognizer(target: self, action: #selector(self.hideKyeboard(gesture:)))
+        let swipeUP = UISwipeGestureRecognizer(target: self, action: #selector(self.hideGlobalData(gesture:)))
+        swipeUP.direction = .up
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.showGlobalData(gesture:)))
+        swipeDown.direction = .down
+        self.sectionView.addGestureRecognizer(swipeUP)
+        self.sectionView.addGestureRecognizer(swipeDown)
+        self.statTableView.addGestureRecognizer(tapForDissmissKeyboard)
+    }
+    
+    @objc func hideKyeboard(gesture: UITapGestureRecognizer) {
+        self.searchBar.endEditing(true)
+    }
+    
+    @objc func showGlobalData(gesture: UISwipeGestureRecognizer) {
+        print("User tap to section view")
+        if isSectionViewIsHidden {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.sectionViewConstraint.isActive = false
+                self.globalView.alpha = 1
+                self.view.layoutIfNeeded()
+            }) { (finish) in
+                if finish {
+                    self.isSectionViewIsHidden = !self.isSectionViewIsHidden
+                }
+            }
+        }
+    }
+    
+    @objc func hideGlobalData(gesture: UISwipeGestureRecognizer) {
+        if !isSectionViewIsHidden {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.sectionViewConstraint.isActive = true
+                self.globalView.alpha = 0
+                self.view.layoutIfNeeded()
+            }) { (finish) in
+                if finish {
+                    self.isSectionViewIsHidden = !self.isSectionViewIsHidden
+                }
+            }
+        }
+    }
+    
+    func viewControllerSetup() {
+        gestureFunctionality()
         self.statTableView.delegate = self
         self.statTableView.dataSource = self
         self.searchBar.delegate = self
-        
         self.searchBar.setImage(UIImage.init(systemName: "list.dash"), for: .bookmark, state: .normal)
-        
         self.statTableView.register(UINib(nibName: "covidStatTableViewCell", bundle: nil), forCellReuseIdentifier: "covidTableViewCell")
+        if controllerRule == .netUpdate {
+            self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+            self.statTableView.addSubview(refreshControl) // not required when using UITableViewController
+        }
         
         startSetUP(rule: controllerRule)
-        
-}
+    }
     
-    func startSetUP(rule: controllerWorkRule) {
+    private func startSetUP(rule: controllerWorkRule) {
         switch rule {
         case .archive:
             print("Use core data to fill tableview")
             guard let report = reportData else { return }
             dailyReportsController.grabAllCountriesReports(report: report) { (countriesCases) in
                 self.casesFromReport = countriesCases
+                self.globalCasesLabel.text = String(report.cases)
+                self.globalDeathsLabel.text = String(report.deaths)
+                self.globalRecoveredLabel.text = String(report.recovered)
                 self.statTableView.reloadData()
             }
         case .netUpdate:
-            requestController.getAllData { (statistics) in
-                    self.casesForCountriesNet.append(contentsOf: statistics)
-                    self.statTableView.reloadData()
-                    self.dailyReportsController.checkIfAlreadyHaveDailyReport(data: statistics) { (report) in
-                        if let covid_report = report {
-                            print("We already have this report, start updating")
-                            self.dailyReportsController.updateDailyReport(parent: covid_report, newData: statistics)
-                        } else {
-                            print("We currently don't have today report, create the newOne")
-                            self.dailyReportsController.createDailyReport { (newReport) in
-                                for all in statistics {
-                                self.dailyReportsController.createCountryDailyReport(parent: newReport, report: all)
+            requestController.getGlobalData(globalData: { (globalData) in
+                self.globalCasesLabel.text = String(globalData.0)
+                self.globalDeathsLabel.text = String(globalData.1)
+                self.globalRecoveredLabel.text = String(globalData.2)
+                self.requestController.getAllData { (statistics) in
+                        self.casesForCountriesNet.append(contentsOf: statistics)
+                        self.refreshControl.endRefreshing()
+                        self.statTableView.reloadData()
+                        self.dailyReportsController.checkIfAlreadyHaveDailyReport(data: statistics) { (report) in
+                            if let covid_report = report {
+                                print("We already have this report, start updating")
+                                self.dailyReportsController.updateDailyReport(parent: covid_report, newData: statistics)
+                                self.dailyReportsController.updateDailyReportWithGlobalData(parent: covid_report, newData: (globalData.0, globalData.1, globalData.2))
+                            } else {
+                                print("We currently don't have today report, create the newOne")
+                                self.dailyReportsController.createDailyReport(globalData: (globalData.0, globalData.1, globalData.2)) { (newReport) in
+                                    for all in statistics {
+                                    self.dailyReportsController.createCountryDailyReport(parent: newReport, report: all)
+                                        
+                                    }
                                 }
-                            }
-                            
+                                
+                        }
                     }
+                    
                 }
-                
-            }
+            }, errorFlag: nil)
         }
     }
 }
@@ -258,5 +334,3 @@ extension WorldStatViewController: UISearchBarDelegate {
     }
     
 }
-
-

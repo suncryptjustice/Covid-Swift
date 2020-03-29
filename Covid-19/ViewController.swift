@@ -17,9 +17,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var recoveredLabel: UILabel!
     @IBOutlet weak var activityController: UIActivityIndicatorView!
     @IBOutlet weak var virusButton: UIButton!
+    @IBOutlet weak var journalButton: UIBarButtonItem!
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+    @IBOutlet weak var statisticsButton: UIButton!
     
     let locationManager = CLLocationManager()
     var shakeTimer = Timer()
+    
+    var userCountry: String?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +36,21 @@ class ViewController: UIViewController {
         }
         
     }
+    @IBAction func virusButtonPressed(_ sender: UIButton) {
+        virusButton.isEnabled = false
+    }
+    @IBAction func statisticsButtonPressed(_ sender: UIButton) {
+        statisticsButton.isEnabled = false
+    }
+    @IBAction func journalButtonPressed(_ sender: UIButton) {
+        journalButton.isEnabled = false
+    }
     
     override func viewWillAppear(_ animated: Bool) {
+        let dailyReportsController = DailyReportsController()
+        journalButton.isEnabled = dailyReportsController.checkIfHaveStoredData()
+        virusButton.isEnabled = true
+        statisticsButton.isEnabled = true
         let shaker = UserDefaults.standard.bool(forKey: "shaker")
         if shaker {
             print("Bad, we already press to shaker")
@@ -57,9 +76,17 @@ class ViewController: UIViewController {
         print("Shake baby")
         self.virusButton.shakeAnim()
     }
+    @IBAction func refreshButtonPressed(_ sender: UIBarButtonItem) {
+        if let country = userCountry {
+            self.updateByCountry(countryName: country)
+        } else {
+            self.updateByGlobal()
+        }
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.shakeTimer.invalidate()
+        self.stopLocationManager()
     }
 
 
@@ -79,26 +106,16 @@ extension ViewController: CLLocationManagerDelegate {
             return
         }
         print("User location = \(location.coordinate.latitude) \(location.coordinate.longitude)")
-        
-        self.getCountry(location) { (country) in
-            if let countryCode = country.0, let countryName = country.1 {
-                print("Update label and make request for user country = \(country)")
-                let requestController = RequestController()
-                requestController.getDataForCountry(countryCode) { (countryData) in
-                    print("We get all data about COVID in \(countryName). Create form to show all stuff")
-                    
-                    self.activityController.startAnimating()
-                    self.activityController.isHidden = true
-                    self.countryUILabel.text = countryName.capitalized
-                    self.casesLabel.text = NSLocalizedString("Cases", comment: "") + ": \(countryData.cases) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayCases) | " + NSLocalizedString("Active", comment: "") + ": \(countryData.activeCases)"
-                    self.deathsLabel.text = NSLocalizedString("Deaths", comment: "") + ": \(countryData.deaths) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayDeaths)"
-                    self.recoveredLabel.text = NSLocalizedString("Recovered", comment: "") + ": \(countryData.recovered) | " + NSLocalizedString("Critical", comment: "") + ": \(countryData.inCtriticalCondition)"
-                    //If we use CoreData to save things we need compare to previous and check dynamic of grown
-                    self.stopLocationManager()
-                }
+        self.getCountry(location, countryName: { (country) in
+            if let countryName = country {
+                print("Update label and make request for user country = \(countryName)")
+                self.updateByCountry(countryName: countryName)
             } else {
                 print("Update label for something that guide user for all stat")
-                self.stopLocationManager()
+            }
+        }) { (errorFlag) in
+            if errorFlag {
+                self.locationErrorHandler()
             }
         }
     }
@@ -115,26 +132,80 @@ extension ViewController: CLLocationManagerDelegate {
         stopLocationManager()
     }
     
-    func getCountry(_ location: CLLocation, countryName: (((String?, String?)) -> ())? = nil) {
+    func getCountry(_ location: CLLocation, countryName: (((String?)) -> ())? = nil, errorFlag: (((Bool)) -> ())? = nil) {
         let geoCoder = CLGeocoder()
         
-        geoCoder.reverseGeocodeLocation(location, completionHandler:
+        geoCoder.reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en_US"),completionHandler:
                 {
                     placemarks, error -> Void in
-
+                    
                     // Place details
-                    guard let placeMark = placemarks?.first else { return }
-                    if let countryCode = placeMark.isoCountryCode, let country_Name = placeMark.country {
+                    guard let placeMark = placemarks?.first else {errorFlag?(true); return }
+                    if let country_Name = placeMark.country {
                         print("We manage to get country from coordinates \(country_Name)")
-                        countryName?((countryCode, country_Name))
+                        countryName?(country_Name)
                     } else {
                         print("We can't get country from coordinates")
+                        errorFlag?(true)
                     }
             })
         }
     func dispatchDelay(delay:Double, closure:@escaping ()->()) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: closure)
     }
+    
+    func locationErrorHandler() {
+        print("We can't get location of user, show him global data instead")
+        self.updateByGlobal()
+    }
+    
+    private func updateByCountry(countryName: String) {
+        let requestController = RequestController()
+        requestController.getDataForCountry(countryName, model: { (countryData) in
+            print("We get all data about COVID in \(countryName). Create form to show all stuff")
+            
+            self.activityController.stopAnimating()
+            self.activityController.isHidden = true
+            self.refreshButton.isEnabled = true
+            UIView.animate(withDuration: 0.25) {
+                self.countryUILabel.text = countryName.capitalized
+                self.casesLabel.text = NSLocalizedString("Cases", comment: "") + ": \(countryData.cases) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayCases) | " + NSLocalizedString("Active", comment: "") + ": \(countryData.activeCases)"
+                self.deathsLabel.text = NSLocalizedString("Deaths", comment: "") + ": \(countryData.deaths) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayDeaths)"
+                self.recoveredLabel.text = NSLocalizedString("Recovered", comment: "") + ": \(countryData.recovered) | " + NSLocalizedString("Critical", comment: "") + ": \(countryData.inCtriticalCondition)"
+                self.countryUILabel.layoutIfNeeded()
+                self.casesLabel.layoutIfNeeded()
+                self.deathsLabel.layoutIfNeeded()
+                self.recoveredLabel.layoutIfNeeded()
+            }
+            self.userCountry = countryName
+        }) { (errorFlag) in
+            if errorFlag {
+                self.locationErrorHandler()
+            }
+        }
+    }
+    
+    private func updateByGlobal() {
+        let requestController = RequestController()
+        requestController.getGlobalData(globalData: { (globalData) in
+            UIView.animate(withDuration: 0.25) {
+                self.countryUILabel.text = NSLocalizedString("World Statistics",comment: "")
+                self.casesLabel.text = NSLocalizedString("Cases", comment: "") + ": \(globalData.0)\n" + NSLocalizedString("Deaths", comment: "") + ": \(globalData.1)\n" + NSLocalizedString("Recovered", comment: "") + ": \(globalData.2)"
+                self.countryUILabel.layoutIfNeeded()
+                self.casesLabel.layoutIfNeeded()
+            }
+            self.activityController.stopAnimating()
+            self.activityController.isHidden = true
+            self.refreshButton.isEnabled = true
+        }) { (errorFlag) in
+            if errorFlag {
+                self.troubleshootingAlert {
+                    self.locationErrorHandler()
+                }
+            }
+        }
+    }
+    
     
 }
 

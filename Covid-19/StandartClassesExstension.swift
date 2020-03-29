@@ -36,3 +36,19 @@ extension UIView {
         self.layer.add(shake, forKey: "position")
     }
 }
+
+extension UIViewController {
+    func troubleshootingAlert(handler: @escaping() -> ()) {
+        let alert = UIAlertController(title: NSLocalizedString("Sorry, we unable to get infrormation for you in current moment", comment: ""), message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Try again", style: .default) { (finish) in
+            handler()
+        }
+        let cancel = UIAlertAction(title: "Okay", style: .cancel) { (finish) in
+            
+        }
+        alert.addAction(cancel)
+        alert.addAction(action)
+        self.present(alert, animated: true) {
+        }
+    }
+}

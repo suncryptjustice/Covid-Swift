@@ -6,6 +6,7 @@
   Copyright © 2020 Ilia Zhegunov. All rights reserved.
 */
 
+"Daily report" = "Daily report";
 
 //CovidStatCell
 
@@ -42,3 +43,7 @@
 "Sequelae" = "Sequelae from COVID-19";
 "Spread" = "How COVID-19 Is Spread";
 "Advice" = "Basic protective measures against virus";
+
+
+"Sorry, we unable to get infrormation for you in current moment" = "Sorry, we unable to get infrormation for you in current moment";
+

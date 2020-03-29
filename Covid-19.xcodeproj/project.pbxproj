@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		730DA63E0488125FB3FFCDC7 /* libPods-Covid-19Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88607D36E2CF371EB54CFE66 /* libPods-Covid-19Tests.a */; };
 		BA9535ED24B681FB058B3C9C /* libPods-Covid-19.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D885B5364CAAA91A21AF480 /* libPods-Covid-19.a */; };
-		E000A95E242F12B300AC21DD /* UIView_exstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E000A95D242F12B200AC21DD /* UIView_exstension.swift */; };
+		E000A95E242F12B300AC21DD /* StandartClassesExstension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E000A95D242F12B200AC21DD /* StandartClassesExstension.swift */; };
 		E003EEFF242D8BF100303707 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E003EEFE242D8BF100303707 /* AppDelegate.swift */; };
 		E003EF01242D8BF100303707 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E003EF00242D8BF100303707 /* SceneDelegate.swift */; };
 		E003EF03242D8BF100303707 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E003EF02242D8BF100303707 /* ViewController.swift */; };
@@ -46,8 +46,7 @@
 		50D00A64232122A93351387D /* Pods-Covid-19.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid-19.debug.xcconfig"; path = "Target Support Files/Pods-Covid-19/Pods-Covid-19.debug.xcconfig"; sourceTree = "<group>"; };
 		6B121151A87E812362D35588 /* Pods-Covid-19Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Covid-19Tests.release.xcconfig"; path = "Target Support Files/Pods-Covid-19Tests/Pods-Covid-19Tests.release.xcconfig"; sourceTree = "<group>"; };
 		88607D36E2CF371EB54CFE66 /* libPods-Covid-19Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Covid-19Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E000A95D242F12B200AC21DD /* UIView_exstension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView_exstension.swift; sourceTree = "<group>"; };
-		E0014A10242EAF37001A8B0A /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		E000A95D242F12B200AC21DD /* StandartClassesExstension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandartClassesExstension.swift; sourceTree = "<group>"; };
 		E003EEFB242D8BF100303707 /* Covid-19.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Covid-19.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E003EEFE242D8BF100303707 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E003EF00242D8BF100303707 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		E04A22C8242DC95300D66763 /* DailyReportsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReportsController.swift; sourceTree = "<group>"; };
 		E04A22CA242E263700D66763 /* ReportsArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsArchive.swift; sourceTree = "<group>"; };
 		E0AA7471242EE8BA00919CED /* AdvicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvicesViewController.swift; sourceTree = "<group>"; };
+		E0BD656224307DA6005847E6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		E0D14636242EBA980060A4C1 /* covidStatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = covidStatTableViewCell.xib; sourceTree = "<group>"; };
 		E0D14639242EBCC40060A4C1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E0D1463B242EBCCD0060A4C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -135,6 +135,7 @@
 		E003EEFD242D8BF100303707 /* Covid-19 */ = {
 			isa = PBXGroup;
 			children = (
+				E0B0904324304EF9007F69E3 /* Controllers */,
 				E0D14636242EBA980060A4C1 /* covidStatTableViewCell.xib */,
 				E0D1463A242EBCC40060A4C1 /* Localizable.strings */,
 				E003EEFE242D8BF100303707 /* AppDelegate.swift */,
@@ -145,14 +146,12 @@
 				E003EF0C242D8BF500303707 /* LaunchScreen.storyboard */,
 				E003EF0F242D8BF500303707 /* Info.plist */,
 				E003EF07242D8BF100303707 /* Covid_19.xcdatamodeld */,
-				E003EF23242D8C8000303707 /* RequestController.swift */,
 				E04A22C2242DA2C300D66763 /* CovidStatTableViewCell.swift */,
 				E04A22C4242DA35A00D66763 /* WorldStatViewController.swift */,
 				E04A22C6242DA54F00D66763 /* StatModel.swift */,
-				E04A22C8242DC95300D66763 /* DailyReportsController.swift */,
 				E04A22CA242E263700D66763 /* ReportsArchive.swift */,
 				E0AA7471242EE8BA00919CED /* AdvicesViewController.swift */,
-				E000A95D242F12B200AC21DD /* UIView_exstension.swift */,
+				E000A95D242F12B200AC21DD /* StandartClassesExstension.swift */,
 			);
 			path = "Covid-19";
 			sourceTree = "<group>";
@@ -164,6 +163,15 @@
 				E003EF1A242D8BF600303707 /* Info.plist */,
 			);
 			path = "Covid-19Tests";
+			sourceTree = "<group>";
+		};
+		E0B0904324304EF9007F69E3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E003EF23242D8C8000303707 /* RequestController.swift */,
+				E04A22C8242DC95300D66763 /* DailyReportsController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,7 +333,7 @@
 				E003EF01242D8BF100303707 /* SceneDelegate.swift in Sources */,
 				E04A22CB242E263700D66763 /* ReportsArchive.swift in Sources */,
 				E0AA7472242EE8BA00919CED /* AdvicesViewController.swift in Sources */,
-				E000A95E242F12B300AC21DD /* UIView_exstension.swift in Sources */,
+				E000A95E242F12B300AC21DD /* StandartClassesExstension.swift in Sources */,
 				E003EF09242D8BF100303707 /* Covid_19.xcdatamodeld in Sources */,
 				E04A22C3242DA2C300D66763 /* CovidStatTableViewCell.swift in Sources */,
 				E04A22C9242DC95300D66763 /* DailyReportsController.swift in Sources */,
@@ -357,7 +365,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E003EF05242D8BF100303707 /* Base */,
-				E0014A10242EAF37001A8B0A /* ru */,
+				E0BD656224307DA6005847E6 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

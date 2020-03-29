@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 class ReportsArchive: UIViewController {
     
@@ -29,15 +30,33 @@ class ReportsArchive: UIViewController {
     
 }
 
-extension ReportsArchive: UITableViewDelegate, UITableViewDataSource {
+extension ReportsArchive: UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            print("We just delete some stuff")
+            self.dailyReportsController.deleteReport(object: self.dataSource[indexPath.row]) { (finish) in
+                self.dataSource.remove(at: indexPath.row)
+                self.reportsTableVIew.reloadData()
+            }
+        }
+
+        // customize the action appearance
+        deleteAction.image = UIImage(named: "delete")
+
+        return [deleteAction]
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = reportsTableVIew.dequeueReusableCell(withIdentifier: "reportCell", for: indexPath as IndexPath)
+        let cell = reportsTableVIew.dequeueReusableCell(withIdentifier: "reportCell", for: indexPath as IndexPath) as! ArchiveCell
         cell.textLabel?.text = dataSource[indexPath.row].title
+        cell.delegate = self
         return cell
     }
     
@@ -49,5 +68,10 @@ extension ReportsArchive: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
+}
+
+
+class ArchiveCell: SwipeTableViewCell {
     
 }

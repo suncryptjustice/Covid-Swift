@@ -1,12 +1,26 @@
+/* Class = "UILabel"; text = "Deaths"; ObjectID = "2z7-9M-c0c"; */
+"2z7-9M-c0c.text" = "Смертей";
 
 /* Class = "UILabel"; text = "COVID-19 CORONAVIRUS PANDEMIC"; ObjectID = "OBG-7w-bZh"; */
 "OBG-7w-bZh.text" = "КОРОНОВИРУСНАЯ ИНФЕКЦИЯ COVID-19";
 
+/* Class = "UILabel"; text = "Confirmed Cases and Deaths"; ObjectID = "QMD-Mk-XeH"; */
+"QMD-Mk-XeH.text" = "Актуальная информация";
+
 /* Class = "UIButton"; normalTitle = "Coronavirus Live statistics"; ObjectID = "RW3-wI-Plf"; */
-"RW3-wI-Plf.normalTitle" = "Просмотр статистики в реальном времени";
+"RW3-wI-Plf.normalTitle" = "Полная статистика";
+
+/* Class = "UILabel"; text = "Recovered"; ObjectID = "ThR-JJ-fSo"; */
+"ThR-JJ-fSo.text" = "Излечилось";
 
 /* Class = "UISearchBar"; placeholder = "Write down country name..."; ObjectID = "Wej-cy-4qn"; */
 "Wej-cy-4qn.placeholder" = "Введите название страны...";
 
 /* Class = "UIButton"; normalTitle = "Journal"; ObjectID = "YTO-hu-j66"; */
 "YTO-hu-j66.normalTitle" = "Журнал";
+
+/* Class = "UILabel"; text = "Global"; ObjectID = "a0M-0e-uYc"; */
+"a0M-0e-uYc.text" = "Мировая статистика";
+
+/* Class = "UILabel"; text = "Cases"; ObjectID = "bJz-IJ-cA9"; */
+"bJz-IJ-cA9.text" = "Заражено";

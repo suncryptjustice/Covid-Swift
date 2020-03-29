@@ -6,7 +6,7 @@
   Copyright © 2020 Ilia Zhegunov. All rights reserved.
 */
 
-
+"Daily report" = "Отчет за";
 //CovidStatCell
 
 "Cases" = "Всего заражений";
@@ -42,3 +42,7 @@
 "Sequelae" = "Осложнения";
 "Spread" = "Пути передачи вируса";
 "Advice" = "Советы";
+
+
+"Sorry, we unable to get infrormation for you in current moment" = "К сожалению мы не смогли получить информацию для васб попробуйте еще раз позднее";
+"World Statistics" = "Ситуация в мире";

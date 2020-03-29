@@ -3,22 +3,28 @@
     <entity name="Country_daily_report" representedClassName="Country_daily_report" syncable="YES" codeGenerationType="class">
         <attribute name="activeCases" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="country_name" optional="YES" attributeType="String"/>
+        <attribute name="created_at" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="criticalCondition" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="recovered" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="todayCases" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="todayDeaths" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalCases" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="totalDeaths" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="updated_at" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="parentReport" maxCount="1" deletionRule="No Action" destinationEntity="COVID_daily_report" inverseName="countries" inverseEntity="COVID_daily_report"/>
     </entity>
     <entity name="COVID_daily_report" representedClassName="COVID_daily_report" syncable="YES" codeGenerationType="class">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="cases" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="created_at" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deaths" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="recovered" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="updated_at" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="countries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Country_daily_report" inverseName="parentReport" inverseEntity="Country_daily_report"/>
     </entity>
     <elements>
-        <element name="COVID_daily_report" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="Country_daily_report" positionX="-54" positionY="9" width="128" height="193"/>
+        <element name="Country_daily_report" positionX="-54" positionY="9" width="128" height="208"/>
+        <element name="COVID_daily_report" positionX="-63" positionY="-18" width="128" height="163"/>
     </elements>
 </model>

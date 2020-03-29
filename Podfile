@@ -8,6 +8,7 @@ target 'Covid-19' do
   # Pods for Covid-19
   pod 'Alamofire', '~> 5.0'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'SwipeCellKit'
 
   target 'Covid-19Tests' do
     inherit! :search_paths
