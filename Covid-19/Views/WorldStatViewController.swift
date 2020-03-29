@@ -34,6 +34,7 @@ class WorldStatViewController: UIViewController {
     var casesForCountriesNet: [StatModel] = []
     var casesFromReport: [Country_daily_report] = []
     let requestController = RequestController()
+    var globalData: (Int64, Int64, Int64)?
     
     let dailyReportsController = DailyReportsController()
     
@@ -46,6 +47,7 @@ class WorldStatViewController: UIViewController {
         case netUpdate
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewControllerSetup()
@@ -57,59 +59,62 @@ class WorldStatViewController: UIViewController {
         startSetUP(rule: controllerRule)
     }
     
-    func gestureFunctionality() {
-        let tapForDissmissKeyboard = UITapGestureRecognizer(target: self, action: #selector(self.hideKyeboard(gesture:)))
-        let swipeUP = UISwipeGestureRecognizer(target: self, action: #selector(self.hideGlobalData(gesture:)))
-        swipeUP.direction = .up
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.showGlobalData(gesture:)))
-        swipeDown.direction = .down
-        self.sectionView.addGestureRecognizer(swipeUP)
-        self.sectionView.addGestureRecognizer(swipeDown)
-        self.statTableView.addGestureRecognizer(tapForDissmissKeyboard)
-    }
+//    func gestureFunctionality() {
+//        let tapForDissmissKeyboard = UITapGestureRecognizer(target: self, action: #selector(self.hideKyeboard(gesture:)))
+//        let swipeUP = UISwipeGestureRecognizer(target: self, action: #selector(self.hideGlobalData(gesture:)))
+//        swipeUP.direction = .up
+//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.showGlobalData(gesture:)))
+//        swipeDown.direction = .down
+//        self.sectionView.addGestureRecognizer(swipeUP)
+//        self.sectionView.addGestureRecognizer(swipeDown)
+//        self.statTableView.addGestureRecognizer(tapForDissmissKeyboard)
+//    }
     
     @objc func hideKyeboard(gesture: UITapGestureRecognizer) {
         self.searchBar.endEditing(true)
     }
     
-    @objc func showGlobalData(gesture: UISwipeGestureRecognizer) {
-        print("User tap to section view")
-        if isSectionViewIsHidden {
-            UIView.animate(withDuration: 0.25, animations: {
-                self.sectionViewConstraint.isActive = false
-                self.globalView.alpha = 1
-                self.view.layoutIfNeeded()
-            }) { (finish) in
-                if finish {
-                    self.isSectionViewIsHidden = !self.isSectionViewIsHidden
-                }
-            }
-        }
-    }
-    
-    @objc func hideGlobalData(gesture: UISwipeGestureRecognizer) {
-        if !isSectionViewIsHidden {
-            UIView.animate(withDuration: 0.25, animations: {
-                self.sectionViewConstraint.isActive = true
-                self.globalView.alpha = 0
-                self.view.layoutIfNeeded()
-            }) { (finish) in
-                if finish {
-                    self.isSectionViewIsHidden = !self.isSectionViewIsHidden
-                }
-            }
-        }
-    }
+//    @objc func showGlobalData(gesture: UISwipeGestureRecognizer) {
+//        print("User tap to section view")
+//        if isSectionViewIsHidden {
+//            UIView.animate(withDuration: 0.25, animations: {
+//                self.sectionViewConstraint.isActive = false
+//                self.globalView.alpha = 1
+//                self.view.layoutIfNeeded()
+//            }) { (finish) in
+//                if finish {
+//                    self.isSectionViewIsHidden = !self.isSectionViewIsHidden
+//                }
+//            }
+//        }
+//    }
+//
+//    @objc func hideGlobalData(gesture: UISwipeGestureRecognizer) {
+//        if !isSectionViewIsHidden {
+//            UIView.animate(withDuration: 0.25, animations: {
+//                self.sectionViewConstraint.isActive = true
+//                self.globalView.alpha = 0
+//                self.view.layoutIfNeeded()
+//            }) { (finish) in
+//                if finish {
+//                    self.isSectionViewIsHidden = !self.isSectionViewIsHidden
+//                }
+//            }
+//        }
+//    }
     
     func viewControllerSetup() {
-        gestureFunctionality()
+        //gestureFunctionality()
         self.statTableView.delegate = self
         self.statTableView.dataSource = self
         self.searchBar.delegate = self
         self.searchBar.setImage(UIImage.init(systemName: "list.dash"), for: .bookmark, state: .normal)
+        
+        self.statTableView.register(UINib(nibName: "globalStatTableViewCell", bundle: nil), forCellReuseIdentifier: "covidGlobalStatCell")
         self.statTableView.register(UINib(nibName: "covidStatTableViewCell", bundle: nil), forCellReuseIdentifier: "covidTableViewCell")
         if controllerRule == .netUpdate {
             self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+            //self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Updating latest information about COVID-19", comment: ""))
             self.statTableView.addSubview(refreshControl) // not required when using UITableViewController
         }
         
@@ -123,46 +128,81 @@ class WorldStatViewController: UIViewController {
             guard let report = reportData else { return }
             dailyReportsController.grabAllCountriesReports(report: report) { (countriesCases) in
                 self.casesFromReport = countriesCases
-                self.globalCasesLabel.text = String(report.cases)
-                self.globalDeathsLabel.text = String(report.deaths)
-                self.globalRecoveredLabel.text = String(report.recovered)
+                self.globalData = (report.cases, report.deaths, report.recovered)
                 self.statTableView.reloadData()
             }
         case .netUpdate:
-            requestController.getGlobalData(globalData: { (globalData) in
-                self.globalCasesLabel.text = String(globalData.0)
-                self.globalDeathsLabel.text = String(globalData.1)
-                self.globalRecoveredLabel.text = String(globalData.2)
-                self.requestController.getAllData { (statistics) in
-                        self.casesForCountriesNet.append(contentsOf: statistics)
-                        self.refreshControl.endRefreshing()
+            
+            self.dailyReportsController.checkIfAlreadyHaveDailyReport { (report) in
+                if let covid_report = report {
+                    print("Grab from CoreData")
+                    self.dailyReportsController.grabAllCountriesReports(report: covid_report) { (countriesCases) in
+                        self.casesForCountriesNet = countriesCases.map({ (transform) -> StatModel in
+                            StatModel.init(country: transform.country_name!, cases: Int(transform.totalCases), todayCases: Int(transform.todayCases), activeCases: Int(transform.activeCases), deaths: Int(transform.totalDeaths), todayDeaths: Int(transform.todayDeaths), inCriticalCondition: Int(transform.criticalCondition), recovered: Int(transform.recovered))
+                        }).sorted(by: { (element1, element2) -> Bool in
+                            return element1.cases > element2.cases
+                        })
+                        self.globalData = (covid_report.cases, covid_report.deaths, covid_report.recovered)
                         self.statTableView.reloadData()
-                        self.dailyReportsController.checkIfAlreadyHaveDailyReport(data: statistics) { (report) in
-                            if let covid_report = report {
-                                print("We already have this report, start updating")
-                                self.dailyReportsController.updateDailyReport(parent: covid_report, newData: statistics)
-                                self.dailyReportsController.updateDailyReportWithGlobalData(parent: covid_report, newData: (globalData.0, globalData.1, globalData.2))
-                            } else {
-                                print("We currently don't have today report, create the newOne")
-                                self.dailyReportsController.createDailyReport(globalData: (globalData.0, globalData.1, globalData.2)) { (newReport) in
-                                    for all in statistics {
-                                    self.dailyReportsController.createCountryDailyReport(parent: newReport, report: all)
-                                        
-                                    }
+                    }
+                        print("We already have this report, start updating")
+                    self.requestController.getGlobalData(globalData: { (globalData) in
+                        self.requestController.getAllData { (statistics) in
+                                self.casesForCountriesNet.append(contentsOf: statistics)
+                                self.globalData = (Int64(globalData.0), Int64(globalData.1), Int64(globalData.2))
+                                self.refreshControl.endRefreshing()
+                                self.statTableView.reloadData()
+                                 self.dailyReportsController.updateDailyReport(parent: covid_report, newData: statistics)
+                                                       self.dailyReportsController.updateDailyReportWithGlobalData(parent: covid_report, newData: (globalData.0, globalData.1, globalData.2))
+                            
+                        }
+                    }, errorFlag: nil)
+                    
+                       
+                    } else {
+                        print("We currently don't have today report, create the newOne")
+                    self.requestController.getGlobalData(globalData: { (globalData) in
+                        self.globalData = (Int64(globalData.0), Int64(globalData.1), Int64(globalData.2))
+                        self.requestController.getAllData { (statistics) in
+                            self.casesForCountriesNet = statistics
+                            self.statTableView.reloadData()
+                            self.dailyReportsController.createDailyReport(globalData: (globalData.0, globalData.1, globalData.2)) { (newReport) in
+                                for all in statistics {
+                                self.dailyReportsController.createCountryDailyReport(parent: newReport, report: all)
                                 }
                                 
+                                
+                            }
                         }
-                    }
-                    
+                        
+                    }, errorFlag: nil)
+                        
+                        
                 }
-            }, errorFlag: nil)
+            }
+            
         }
     }
 }
 
 extension WorldStatViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return NSLocalizedString("Coronavirus Global Cases", comment: "")
+        } else {
+            return NSLocalizedString("Confirmed Cases by Country", comment: "")
+        }
+    }
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        } else {
         switch controllerRule {
         case .archive:
             return casesFromReport.count
@@ -171,9 +211,29 @@ extension WorldStatViewController: UITableViewDelegate, UITableViewDataSource {
         case .none:
             return 0
         }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = statTableView.dequeueReusableCell(withIdentifier: "covidGlobalStatCell", for: indexPath as IndexPath) as! GlobalStatTableViewCell
+            
+            cell.casesTitleLabel.text = NSLocalizedString("CasesShort", comment: "")
+            cell.deathsTitleLabel.text = NSLocalizedString("Deaths", comment: "")
+            cell.recoveredTitleLabel.text = NSLocalizedString("Recovered", comment: "")
+            if let cases = globalData?.0, let deaths = globalData?.1, let recovered = globalData?.2 {
+            cell.casesAmmountLabel.text = String(cases)
+            cell.deathsAmmountLabel.text = String(deaths)
+            cell.recoveredAmmountLabel.text = String(recovered)
+            } else {
+                cell.casesAmmountLabel.text = "-"
+                cell.deathsAmmountLabel.text = "-"
+                cell.recoveredAmmountLabel.text = "-"
+            }
+            
+            return cell
+            
+        } else {
         let cell = statTableView.dequeueReusableCell(withIdentifier: "covidTableViewCell", for: indexPath as IndexPath) as! CovidStatTableViewCell
         switch controllerRule {
         case .archive:
@@ -193,6 +253,7 @@ extension WorldStatViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         return cell
+        }
     }
     
     

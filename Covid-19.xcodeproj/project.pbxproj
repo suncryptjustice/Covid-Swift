@@ -19,6 +19,8 @@
 		E003EF0E242D8BF500303707 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E003EF0C242D8BF500303707 /* LaunchScreen.storyboard */; };
 		E003EF19242D8BF600303707 /* Covid_19Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E003EF18242D8BF600303707 /* Covid_19Tests.swift */; };
 		E003EF24242D8C8000303707 /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E003EF23242D8C8000303707 /* RequestController.swift */; };
+		E04552702431389A00D69A3F /* globalStatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E045526F2431389A00D69A3F /* globalStatTableViewCell.xib */; };
+		E04552722431393E00D69A3F /* GlobalStatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04552712431393E00D69A3F /* GlobalStatTableViewCell.swift */; };
 		E04A22C3242DA2C300D66763 /* CovidStatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04A22C2242DA2C300D66763 /* CovidStatTableViewCell.swift */; };
 		E04A22C5242DA35A00D66763 /* WorldStatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04A22C4242DA35A00D66763 /* WorldStatViewController.swift */; };
 		E04A22C7242DA54F00D66763 /* StatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04A22C6242DA54F00D66763 /* StatModel.swift */; };
@@ -60,6 +62,8 @@
 		E003EF18242D8BF600303707 /* Covid_19Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Covid_19Tests.swift; sourceTree = "<group>"; };
 		E003EF1A242D8BF600303707 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E003EF23242D8C8000303707 /* RequestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
+		E045526F2431389A00D69A3F /* globalStatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = globalStatTableViewCell.xib; sourceTree = "<group>"; };
+		E04552712431393E00D69A3F /* GlobalStatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStatTableViewCell.swift; sourceTree = "<group>"; };
 		E04A22C2242DA2C300D66763 /* CovidStatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidStatTableViewCell.swift; sourceTree = "<group>"; };
 		E04A22C4242DA35A00D66763 /* WorldStatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldStatViewController.swift; sourceTree = "<group>"; };
 		E04A22C6242DA54F00D66763 /* StatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatModel.swift; sourceTree = "<group>"; };
@@ -135,23 +139,19 @@
 		E003EEFD242D8BF100303707 /* Covid-19 */ = {
 			isa = PBXGroup;
 			children = (
+				E045526E2431385800D69A3F /* support */,
+				E045526D2431382A00D69A3F /* Localization */,
+				E045526C2431381500D69A3F /* xib_files */,
+				E045526A243137CA00D69A3F /* Views */,
+				E045526B243137F700D69A3F /* Model */,
 				E0B0904324304EF9007F69E3 /* Controllers */,
-				E0D14636242EBA980060A4C1 /* covidStatTableViewCell.xib */,
-				E0D1463A242EBCC40060A4C1 /* Localizable.strings */,
 				E003EEFE242D8BF100303707 /* AppDelegate.swift */,
 				E003EF00242D8BF100303707 /* SceneDelegate.swift */,
-				E003EF02242D8BF100303707 /* ViewController.swift */,
 				E003EF04242D8BF100303707 /* Main.storyboard */,
 				E003EF0A242D8BF500303707 /* Assets.xcassets */,
 				E003EF0C242D8BF500303707 /* LaunchScreen.storyboard */,
 				E003EF0F242D8BF500303707 /* Info.plist */,
 				E003EF07242D8BF100303707 /* Covid_19.xcdatamodeld */,
-				E04A22C2242DA2C300D66763 /* CovidStatTableViewCell.swift */,
-				E04A22C4242DA35A00D66763 /* WorldStatViewController.swift */,
-				E04A22C6242DA54F00D66763 /* StatModel.swift */,
-				E04A22CA242E263700D66763 /* ReportsArchive.swift */,
-				E0AA7471242EE8BA00919CED /* AdvicesViewController.swift */,
-				E000A95D242F12B200AC21DD /* StandartClassesExstension.swift */,
 			);
 			path = "Covid-19";
 			sourceTree = "<group>";
@@ -163,6 +163,52 @@
 				E003EF1A242D8BF600303707 /* Info.plist */,
 			);
 			path = "Covid-19Tests";
+			sourceTree = "<group>";
+		};
+		E045526A243137CA00D69A3F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E0AA7471242EE8BA00919CED /* AdvicesViewController.swift */,
+				E04A22CA242E263700D66763 /* ReportsArchive.swift */,
+				E003EF02242D8BF100303707 /* ViewController.swift */,
+				E04A22C4242DA35A00D66763 /* WorldStatViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E045526B243137F700D69A3F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E04A22C6242DA54F00D66763 /* StatModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E045526C2431381500D69A3F /* xib_files */ = {
+			isa = PBXGroup;
+			children = (
+				E0D14636242EBA980060A4C1 /* covidStatTableViewCell.xib */,
+				E045526F2431389A00D69A3F /* globalStatTableViewCell.xib */,
+			);
+			path = xib_files;
+			sourceTree = "<group>";
+		};
+		E045526D2431382A00D69A3F /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				E0D1463A242EBCC40060A4C1 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		E045526E2431385800D69A3F /* support */ = {
+			isa = PBXGroup;
+			children = (
+				E000A95D242F12B200AC21DD /* StandartClassesExstension.swift */,
+				E04A22C2242DA2C300D66763 /* CovidStatTableViewCell.swift */,
+				E04552712431393E00D69A3F /* GlobalStatTableViewCell.swift */,
+			);
+			path = support;
 			sourceTree = "<group>";
 		};
 		E0B0904324304EF9007F69E3 /* Controllers */ = {
@@ -260,6 +306,7 @@
 			files = (
 				E0D14638242EBCC40060A4C1 /* Localizable.strings in Resources */,
 				E003EF0E242D8BF500303707 /* LaunchScreen.storyboard in Resources */,
+				E04552702431389A00D69A3F /* globalStatTableViewCell.xib in Resources */,
 				E003EF0B242D8BF500303707 /* Assets.xcassets in Resources */,
 				E0D14637242EBA980060A4C1 /* covidStatTableViewCell.xib in Resources */,
 				E003EF06242D8BF100303707 /* Main.storyboard in Resources */,
@@ -329,6 +376,7 @@
 			files = (
 				E003EF03242D8BF100303707 /* ViewController.swift in Sources */,
 				E003EF24242D8C8000303707 /* RequestController.swift in Sources */,
+				E04552722431393E00D69A3F /* GlobalStatTableViewCell.swift in Sources */,
 				E003EEFF242D8BF100303707 /* AppDelegate.swift in Sources */,
 				E003EF01242D8BF100303707 /* SceneDelegate.swift in Sources */,
 				E04A22CB242E263700D66763 /* ReportsArchive.swift in Sources */,

@@ -135,19 +135,16 @@ class DailyReportsController {
         }
     }
     
-    func checkIfAlreadyHaveDailyReport(data: [StatModel], comlition: (((COVID_daily_report?)) -> ())? = nil){
-        if let element = data.first {
-            
+    func checkIfAlreadyHaveDailyReport(comlition: (((COVID_daily_report?)) -> ())? = nil){
+            let date = Date()
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "COVID_daily_report")
-        
-            fetchRequest.predicate = NSPredicate(format: "created_at <= %@", element.date as NSDate)
-            
+            fetchRequest.predicate = NSPredicate(format: "created_at <= %@", date as NSDate)
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
             do {
                 let result = try context.fetch(fetchRequest) as! [COVID_daily_report]
                 if let report = result.first(where: { (db_report) -> Bool in
-                    let datesAreInTheSameDay = Calendar.current.isDate(db_report.created_at!, equalTo: data.first!.date, toGranularity:.day)
+                    let datesAreInTheSameDay = Calendar.current.isDate(db_report.created_at!, equalTo: date, toGranularity:.day)
                     return datesAreInTheSameDay
                 }) {
                     print("We manage to find report from the same day")
@@ -160,7 +157,7 @@ class DailyReportsController {
                 
             }
             
-        }
+        
         
     }
     
@@ -214,4 +211,5 @@ class DailyReportsController {
         }
     }
     
+ 
 }

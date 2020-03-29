@@ -18,23 +18,43 @@ class ViewController: UIViewController {
     @IBOutlet weak var activityController: UIActivityIndicatorView!
     @IBOutlet weak var virusButton: UIButton!
     @IBOutlet weak var journalButton: UIBarButtonItem!
-    @IBOutlet weak var refreshButton: UIBarButtonItem!
     @IBOutlet weak var statisticsButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     let locationManager = CLLocationManager()
     var shakeTimer = Timer()
+    let refreshControl = UIRefreshControl()
     
     var userCountry: String?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.scrollView.delegate = self
+        self.scrollViewSetup(scrollEnabled: false)
+        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        self.scrollView.addSubview(refreshControl) // not required when using UITableViewController
         // Do any additional setup after loading the view.
         activityController.startAnimating()
         dispatchDelay(delay: 2) {
             self.askLocation()
         }
         
+    }
+    
+    private func scrollViewSetup(scrollEnabled: Bool) {
+        self.scrollView.isScrollEnabled = scrollEnabled
+        self.scrollView.alwaysBounceVertical = scrollEnabled
+    }
+    
+    @objc func refresh() {
+        print("Refresh")
+        refreshControl.beginRefreshing()
+        if let country = userCountry {
+            self.updateByCountry(countryName: country)
+        } else {
+            self.updateByGlobal()
+        }
     }
     @IBAction func virusButtonPressed(_ sender: UIButton) {
         virusButton.isEnabled = false
@@ -76,13 +96,7 @@ class ViewController: UIViewController {
         print("Shake baby")
         self.virusButton.shakeAnim()
     }
-    @IBAction func refreshButtonPressed(_ sender: UIBarButtonItem) {
-        if let country = userCountry {
-            self.updateByCountry(countryName: country)
-        } else {
-            self.updateByGlobal()
-        }
-    }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         self.shakeTimer.invalidate()
@@ -110,12 +124,14 @@ extension ViewController: CLLocationManagerDelegate {
             if let countryName = country {
                 print("Update label and make request for user country = \(countryName)")
                 self.updateByCountry(countryName: countryName)
+                self.scrollViewSetup(scrollEnabled: true)
             } else {
                 print("Update label for something that guide user for all stat")
             }
         }) { (errorFlag) in
             if errorFlag {
                 self.locationErrorHandler()
+                self.scrollViewSetup(scrollEnabled: true)
             }
         }
     }
@@ -166,7 +182,6 @@ extension ViewController: CLLocationManagerDelegate {
             
             self.activityController.stopAnimating()
             self.activityController.isHidden = true
-            self.refreshButton.isEnabled = true
             UIView.animate(withDuration: 0.25) {
                 self.countryUILabel.text = countryName.capitalized
                 self.casesLabel.text = NSLocalizedString("Cases", comment: "") + ": \(countryData.cases) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayCases) | " + NSLocalizedString("Active", comment: "") + ": \(countryData.activeCases)"
@@ -176,6 +191,7 @@ extension ViewController: CLLocationManagerDelegate {
                 self.casesLabel.layoutIfNeeded()
                 self.deathsLabel.layoutIfNeeded()
                 self.recoveredLabel.layoutIfNeeded()
+                self.refreshControl.endRefreshing()
             }
             self.userCountry = countryName
         }) { (errorFlag) in
@@ -196,7 +212,7 @@ extension ViewController: CLLocationManagerDelegate {
             }
             self.activityController.stopAnimating()
             self.activityController.isHidden = true
-            self.refreshButton.isEnabled = true
+            self.refreshControl.endRefreshing()
         }) { (errorFlag) in
             if errorFlag {
                 self.troubleshootingAlert {
@@ -209,3 +225,13 @@ extension ViewController: CLLocationManagerDelegate {
     
 }
 
+
+extension ViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            scrollView.contentOffset.y = 0
+        }
+    }
+   
+}

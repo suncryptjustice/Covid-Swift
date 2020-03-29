@@ -46,3 +46,9 @@
 
 "Sorry, we unable to get infrormation for you in current moment" = "К сожалению мы не смогли получить информацию для васб попробуйте еще раз позднее";
 "World Statistics" = "Ситуация в мире";
+
+"Coronavirus Global Cases" = "Мировая статистика";
+"Confirmed Cases by Country" = "Статистика по странам";
+"CasesShort" = "Зараженных";
+
+"Updating latest information about COVID-19" = "Обновление информации";
