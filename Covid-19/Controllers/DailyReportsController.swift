@@ -211,5 +211,18 @@ class DailyReportsController {
         }
     }
     
+    func saveGlobaldataForExtension(cases: Int, deaths: Int, recovered: Int) {
+        UserDefaults(suiteName: "group.Covid")!.set(cases, forKey: "cases")
+        UserDefaults(suiteName: "group.Covid")!.set(deaths, forKey: "deaths")
+        UserDefaults(suiteName: "group.Covid")!.set(recovered, forKey: "recovered")
+    }
+    
+    func saveUserCountryDataForExtension(country: String, totalCases: Int, todayCases: Int, totalDeaths: Int, todayDeaths: Int, totalRecovered: Int, todayRecovered: Int) {
+        UserDefaults(suiteName: "group.Covid")!.set(country, forKey: "userCountry")
+        UserDefaults(suiteName: "group.Covid")!.set(totalCases, forKey: "totalCases")
+        UserDefaults(suiteName: "group.Covid")!.set(todayCases, forKey: "todayCases")
+        UserDefaults(suiteName: "group.Covid")!.set(totalDeaths, forKey: "totalDeaths")
+        UserDefaults(suiteName: "group.Covid")!.set(todayDeaths, forKey: "todayDeaths")
+    }
  
 }

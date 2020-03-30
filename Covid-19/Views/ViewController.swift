@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         self.scrollView.addSubview(refreshControl) // not required when using UITableViewController
         // Do any additional setup after loading the view.
         activityController.startAnimating()
-        dispatchDelay(delay: 2) {
+        dispatchDelay(delay: 1) {
             self.askLocation()
         }
         
@@ -186,7 +186,7 @@ extension ViewController: CLLocationManagerDelegate {
         let requestController = RequestController()
         requestController.getDataForCountry(countryName, model: { (countryData) in
             print("We get all data about COVID in \(countryName). Create form to show all stuff")
-            
+            UserDefaults(suiteName: "group.Covid")!.set(countryName, forKey: "userCountry")
             self.activityController.stopAnimating()
             self.activityController.isHidden = true
             UIView.animate(withDuration: 0.25) {
@@ -194,6 +194,8 @@ extension ViewController: CLLocationManagerDelegate {
                 self.casesLabel.text = NSLocalizedString("Cases", comment: "") + ": \(countryData.cases) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayCases) | " + NSLocalizedString("Active", comment: "") + ": \(countryData.activeCases)"
                 self.deathsLabel.text = NSLocalizedString("Deaths", comment: "") + ": \(countryData.deaths) | " + NSLocalizedString("Today", comment: "") + ": \(countryData.todayDeaths)"
                 self.recoveredLabel.text = NSLocalizedString("Recovered", comment: "") + ": \(countryData.recovered) | " + NSLocalizedString("Critical", comment: "") + ": \(countryData.inCtriticalCondition)"
+                let dailyReportsController = DailyReportsController()
+                dailyReportsController.saveUserCountryDataForExtension(country: countryName, totalCases: countryData.cases, todayCases: countryData.todayCases, totalDeaths: countryData.deaths, todayDeaths: countryData.todayDeaths, totalRecovered: countryData.recovered, todayRecovered: countryData.inCtriticalCondition)
                 self.countryUILabel.layoutIfNeeded()
                 self.casesLabel.layoutIfNeeded()
                 self.deathsLabel.layoutIfNeeded()
@@ -216,6 +218,8 @@ extension ViewController: CLLocationManagerDelegate {
                 self.casesLabel.text = NSLocalizedString("Cases", comment: "") + ": \(globalData.0)\n" + NSLocalizedString("Deaths", comment: "") + ": \(globalData.1)\n" + NSLocalizedString("Recovered", comment: "") + ": \(globalData.2)"
                 self.countryUILabel.layoutIfNeeded()
                 self.casesLabel.layoutIfNeeded()
+                let dailyReportsController = DailyReportsController()
+                dailyReportsController.saveGlobaldataForExtension(cases: globalData.0, deaths: globalData.1, recovered: globalData.2)
             }
             self.activityController.stopAnimating()
             self.activityController.isHidden = true
